@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monblanproject - Profile</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <link rel="stylesheet" href="css/main.min.css" />
+  </head>
+  <body>
+    <main class="main-content">
+      <section class="profile-section">
+        <div class="profile-container">
+          <header class="profile-header">
+            <div class="profile-logo-area">
+              <img
+                src="images/logo.svg"
+                alt="Monblanproject Logo"
+                class="profile-logo-img"
+              />
+            </div>
+
+            <div class="profile-header-content">
+              <div class="profile-title-row">
+                <h1 class="profile-username">monblanproject</h1>
+                <span class="profile-start">Start on&nbsp; 17-02-2016</span>
+              </div>
+
+              <div class="profile-stats">
+                <span class="stat">
+                  <strong class="stat-value">870</strong>
+                  <span class="stat-label">posts</span>
+                </span>
+                <span class="stat">
+                  <strong class="stat-value">11,787</strong>
+                  <span class="stat-label">followers</span>
+                </span>
+                <span class="stat">
+                  <strong class="stat-value">112</strong>
+                  <span class="stat-label">following</span>
+                </span>
+              </div>
+
+              <div class="filter-section">
+                <span class="filter-label">Date</span>
+                <label class="date-field" for="date-filter">
+                  <input
+                    type="text"
+                    id="date-filter"
+                    class="date-input"
+                    placeholder="from"
+                  />
+                  <button
+                    class="date-action date-action--clear"
+                    id="clear-filter"
+                    type="button"
+                    title="Clear from date"
+                    aria-label="Clear from date"
+                  ></button>
+                  <span class="date-calendar" aria-hidden="true"></span>
+                </label>
+
+                <label class="date-field date-field--to" for="date-filter-to">
+                  <input
+                    type="text"
+                    id="date-filter-to"
+                    class="date-input"
+                    placeholder="to"
+                  />
+                  <button
+                    class="date-action date-action--clear"
+                    id="clear-filter-to"
+                    type="button"
+                    title="Clear to date"
+                    aria-label="Clear to date"
+                  ></button>
+                  <span class="date-calendar" aria-hidden="true"></span>
+                </label>
+              </div>
+            </div>
+          </header>
+
+          <div class="profile-body">
+            <div class="view-toggle">
+              <button
+                class="view-btn view-btn--grid active"
+                data-view="grid"
+                title="Grid view"
+              >
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 22 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect width="6" height="6" fill="#3D8EDA" />
+                  <rect x="8" width="6" height="6" fill="#3D8EDA" />
+                  <rect x="16" width="6" height="6" fill="#3D8EDA" />
+                  <rect y="8" width="6" height="6" fill="#3D8EDA" />
+                  <rect y="16" width="6" height="6" fill="#3D8EDA" />
+                  <rect x="8" y="8" width="6" height="6" fill="#3D8EDA" />
+                  <rect x="8" y="16" width="6" height="6" fill="#3D8EDA" />
+                  <rect x="16" y="8" width="6" height="6" fill="#3D8EDA" />
+                  <rect x="16" y="16" width="6" height="6" fill="#3D8EDA" />
+                </svg>
+              </button>
+              <button
+                class="view-btn view-btn--list"
+                data-view="list"
+                title="List view"
+              >
+                <svg
+                  width="24"
+                  height="22"
+                  viewBox="0 0 24 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect width="6" height="6" fill="#3D8EDA" />
+                  <rect y="8" width="6" height="6" fill="#3D8EDA" />
+                  <rect y="16" width="6" height="6" fill="#3D8EDA" />
+                  <rect x="9" y="10" width="15" height="2" fill="#3D8EDA" />
+                  <rect x="9" y="18" width="15" height="2" fill="#3D8EDA" />
+                  <rect x="9" y="2" width="15" height="2" fill="#3D8EDA" />
+                </svg>
+              </button>
+            </div>
+
+            <div class="posts-container" id="posts-container">
+
+              <div class="post-card" data-post-id="1">
+                <div class="post-image">
+                  <img
+                    src="images/post-1.avif"
+                    alt="Today"
+                    width="86px"
+                    height="86px"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="
+                      this.parentElement.classList.add('post-image--error');
+                      this.remove();
+                    "
+                  />
+                </div>
+                <div class="post-info">
+                  <div class="post-info-col">
+                    <h3 class="post-title">Today</h3>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">128</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">31</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-date">9-08-2016</p>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">67</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">22</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-title-badge">Image upload</p>
+                    <p class="post-upload-date">11-04-2016</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="post-card" data-post-id="2">
+                <div class="post-image">
+                  <img
+                    src="images/post-2.avif"
+                    alt="Today"
+                    width="86px"
+                    height="86px"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="
+                      this.parentElement.classList.add('post-image--error');
+                      this.remove();
+                    "
+                  />
+                </div>
+                <div class="post-info">
+                  <div class="post-info-col">
+                    <h3 class="post-title">Today</h3>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">128</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">31</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-date">9-08-2016</p>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">67</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">22</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-title-badge">Image upload</p>
+                    <p class="post-upload-date">11-04-2016</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="post-card" data-post-id="3">
+                <div class="post-image">
+                  <img
+                    src="images/post-3.avif"
+                    alt="Today"
+                    width="86px"
+                    height="86px"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="
+                      this.parentElement.classList.add('post-image--error');
+                      this.remove();
+                    "
+                  />
+                </div>
+                <div class="post-info">
+                  <div class="post-info-col">
+                    <h3 class="post-title">Today</h3>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">128</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">31</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-date">9-08-2016</p>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">67</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">22</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-title-badge">Image upload</p>
+                    <p class="post-upload-date">11-04-2016</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="post-card" data-post-id="4">
+                <div class="post-image">
+                  <img
+                    src="images/post-4.avif"
+                    alt="Today"
+                    width="86px"
+                    height="86px"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="
+                      this.parentElement.classList.add('post-image--error');
+                      this.remove();
+                    "
+                  />
+                </div>
+                <div class="post-info">
+                  <div class="post-info-col">
+                    <h3 class="post-title">Today</h3>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">128</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">31</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-date">9-08-2016</p>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">67</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">22</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-title-badge">Image upload</p>
+                    <p class="post-upload-date">11-04-2016</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="post-card" data-post-id="5">
+                <div class="post-image">
+                  <img
+                    src="images/post-5.avif"
+                    alt="Today"
+                    width="86px"
+                    height="86px"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="
+                      this.parentElement.classList.add('post-image--error');
+                      this.remove();
+                    "
+                  />
+                </div>
+                <div class="post-info">
+                  <div class="post-info-col">
+                    <h3 class="post-title">Today</h3>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">128</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">31</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-date">9-08-2016</p>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">67</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">22</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-title-badge">Image upload</p>
+                    <p class="post-upload-date">11-04-2016</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="post-card" data-post-id="6">
+                <div class="post-image">
+                  <img
+                    src="images/post-6.avif"
+                    alt="Today"
+                    width="86px"
+                    height="86px"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="
+                      this.parentElement.classList.add('post-image--error');
+                      this.remove();
+                    "
+                  />
+                </div>
+                <div class="post-info">
+                  <div class="post-info-col">
+                    <h3 class="post-title">Today</h3>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">128</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">31</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-date">9-08-2016</p>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">67</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">22</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-title-badge">Image upload</p>
+                    <p class="post-upload-date">11-04-2016</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="post-card" data-post-id="7">
+                <div class="post-image">
+                  <img
+                    src="images/post-7.avif"
+                    alt="Today"
+                    width="86px"
+                    height="86px"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="
+                      this.parentElement.classList.add('post-image--error');
+                      this.remove();
+                    "
+                  />
+                </div>
+                <div class="post-info">
+                  <div class="post-info-col">
+                    <h3 class="post-title">Today</h3>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">128</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">31</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-date">9-08-2016</p>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">67</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">22</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-title-badge">Image upload</p>
+                    <p class="post-upload-date">11-04-2016</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="post-card" data-post-id="8">
+                <div class="post-image">
+                  <img
+                    src="images/post-8.avif"
+                    alt="Today"
+                    width="86px"
+                    height="86px"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="
+                      this.parentElement.classList.add('post-image--error');
+                      this.remove();
+                    "
+                  />
+                </div>
+                <div class="post-info">
+                  <div class="post-info-col">
+                    <h3 class="post-title">Today</h3>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">128</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">31</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-date">9-08-2016</p>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">67</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">22</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-title-badge">Image upload</p>
+                    <p class="post-upload-date">11-04-2016</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="post-card" data-post-id="9">
+                <div class="post-image">
+                  <img
+                    src="images/post-9.avif"
+                    alt="Today"
+                    width="86px"
+                    height="86px"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="
+                      this.parentElement.classList.add('post-image--error');
+                      this.remove();
+                    "
+                  />
+                </div>
+                <div class="post-info">
+                  <div class="post-info-col">
+                    <h3 class="post-title">Today</h3>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">128</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">31</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-date">9-08-2016</p>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">67</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">22</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-title-badge">Image upload</p>
+                    <p class="post-upload-date">11-04-2016</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="post-card hidden" data-post-id="10">
+                <div class="post-image">
+                  <img
+                    src="images/post-10.avif"
+                    alt="Today"
+                    width="86px"
+                    height="86px"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="
+                      this.parentElement.classList.add('post-image--error');
+                      this.remove();
+                    "
+                  />
+                </div>
+                <div class="post-info">
+                  <div class="post-info-col">
+                    <h3 class="post-title">Today</h3>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">128</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">31</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-date">9-08-2016</p>
+                    <div class="align">
+                      <div class="post-stat post-stat--likes">
+                        <span class="count">67</span>
+                      </div>
+                      <div class="post-stat post-stat--comments">
+                        <span class="count">22</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-info-col">
+                    <p class="post-title-badge">Image upload</p>
+                    <p class="post-upload-date">11-04-2016</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="empty-state hidden">
+                <div class="empty-state-icon">📭</div>
+                <h3 class="empty-state-title">No posts found</h3>
+                <p class="empty-state-text">
+                  Try selecting a different date or clearing filters
+                </p>
+              </div>
+            </div>
+
+            <button class="load-more-btn" id="load-more-btn">LOAD MORE</button>
+
+            <div class="wave-decoration wave-decoration--right">
+              <svg
+                width="210"
+                height="368"
+                viewBox="0 0 210 368"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M121.932 39.2032C135.932 105.603 148 118.203 156.932 119.703C205.275 127.822 224.932 51.7032 280.932 100.203C336.932 148.703 330.432 411.703 209.432 361.203C88.4321 310.703 83.4321 249.703 73.4321 225.703C65.4321 206.503 39.7655 184.037 27.9322 175.203C-26.8678 126.803 11.4322 58.3699 37.4322 30.2032C59.7655 5.53652 107.932 -27.1968 121.932 39.2032Z"
+                  fill="url(#paint0_linear_2_356)"
+                />
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_2_356"
+                    x1="118"
+                    y1="-0.296816"
+                    x2="51.686"
+                    y2="332.244"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#40AF79" />
+                    <stop offset="1" stop-color="#124757" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="js/main.min.js"></script>
+  </body>
+</html>
