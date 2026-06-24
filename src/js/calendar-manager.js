@@ -1,16 +1,14 @@
 /**
- * Calendar Manager (with Flatpickr)
+ * Calendar Manager
+ * Wraps two Flatpickr instances ("from" and "to") and connects them
+ * to PostsManager so selecting a date range filters the post grid.
  */
 var CalendarManager = function (postsManager) {
   this.postsManager = postsManager;
   this.fromInput = document.querySelector(CONSTANTS.SELECTORS.DATE_INPUT);
   this.toInput = document.querySelector(CONSTANTS.SELECTORS.DATE_TO_INPUT);
-  this.clearFromBtn = document.querySelector(
-    CONSTANTS.SELECTORS.CLEAR_FILTER_BTN,
-  );
-  this.clearToBtn = document.querySelector(
-    CONSTANTS.SELECTORS.CLEAR_TO_FILTER_BTN,
-  );
+  this.clearFromBtn = document.querySelector(CONSTANTS.SELECTORS.CLEAR_FILTER_BTN);
+  this.clearToBtn = document.querySelector(CONSTANTS.SELECTORS.CLEAR_TO_FILTER_BTN);
   this.fromCalendar = null;
   this.toCalendar = null;
 };
@@ -23,6 +21,8 @@ CalendarManager.prototype.init = function () {
 
 CalendarManager.prototype.initFlatpickr = function () {
   var self = this;
+
+  // Shared options applied to both "from" and "to" pickers
   var calendarOptions = {
     mode: "single",
     dateFormat: "d_m_Y",
@@ -33,7 +33,7 @@ CalendarManager.prototype.initFlatpickr = function () {
         longhand: flatpickr.l10ns.default.weekdays.longhand,
       },
     }),
-    onChange: function (selectedDates) {
+    onChange: function () {
       self.onDateChange();
     },
     onClose: function () {
@@ -60,16 +60,18 @@ CalendarManager.prototype.initFlatpickr = function () {
       onChange: function () {
         self.onDateChange();
       },
-    }),
+    })
   );
 };
 
+/** Called whenever either date picker value changes. */
 CalendarManager.prototype.onDateChange = function () {
   this.syncDateConstraints();
 
   var fromDate = this.getCalendarDate(this.fromCalendar);
   var toDate = this.getCalendarDate(this.toCalendar);
 
+  // Persist selection across page reloads
   if (fromDate) {
     localStorage.setItem(CONSTANTS.STORAGE_KEYS.SELECTED_FROM_DATE, fromDate);
   } else {
@@ -86,9 +88,12 @@ CalendarManager.prototype.onDateChange = function () {
   this.updateClearButtonStates();
 };
 
-// Гарантирует, что дата "to" не может быть раньше даты "from":
-// 1) ограничивает минимально доступную дату в самом календаре "to";
-// 2) если уже выбранная дата "to" оказалась раньше новой "from" — сбрасывает её.
+/**
+ * Keep the "to" calendar in sync with the "from" value so the user
+ * cannot pick an end date that precedes the start date:
+ *   1. Sets the minimum selectable date in the "to" picker.
+ *   2. Clears the "to" value if it has already become invalid.
+ */
 CalendarManager.prototype.syncDateConstraints = function () {
   var fromSelected = this.fromCalendar.selectedDates[0] || null;
   var toSelected = this.toCalendar.selectedDates[0] || null;
@@ -101,6 +106,7 @@ CalendarManager.prototype.syncDateConstraints = function () {
   }
 };
 
+/** Format a Date object as an ISO 8601 string (YYYY-MM-DD). */
 CalendarManager.prototype.formatDateToISO = function (date) {
   var year = date.getFullYear();
   var month = String(date.getMonth() + 1).padStart(2, "0");
@@ -115,7 +121,6 @@ CalendarManager.prototype.attachEventListeners = function () {
       self.clearFromFilter();
     });
   }
-
   if (this.clearToBtn) {
     this.clearToBtn.addEventListener("click", function () {
       self.clearToFilter();
@@ -123,6 +128,7 @@ CalendarManager.prototype.attachEventListeners = function () {
   }
 };
 
+/** Clear both date pickers and remove the filter. */
 CalendarManager.prototype.clearFilter = function () {
   this.fromCalendar.clear();
   this.toCalendar.clear();
@@ -133,30 +139,31 @@ CalendarManager.prototype.clearFilter = function () {
   this.updateClearButtonStates();
 };
 
+/** Clear only the "from" date and re-apply the range filter. */
 CalendarManager.prototype.clearFromFilter = function () {
   this.fromCalendar.clear();
   localStorage.removeItem(CONSTANTS.STORAGE_KEYS.SELECTED_FROM_DATE);
   this.onDateChange();
 };
 
+/** Clear only the "to" date and re-apply the range filter. */
 CalendarManager.prototype.clearToFilter = function () {
   this.toCalendar.clear();
   localStorage.removeItem(CONSTANTS.STORAGE_KEYS.SELECTED_TO_DATE);
   this.onDateChange();
 };
 
+/**
+ * Restore previously saved dates from localStorage on page load,
+ * then apply the range filter so the view matches the saved state.
+ */
 CalendarManager.prototype.restoreSelectedDate = function () {
-  var savedFromDate = localStorage.getItem(
-    CONSTANTS.STORAGE_KEYS.SELECTED_FROM_DATE,
-  );
-  var savedToDate = localStorage.getItem(
-    CONSTANTS.STORAGE_KEYS.SELECTED_TO_DATE,
-  );
+  var savedFromDate = localStorage.getItem(CONSTANTS.STORAGE_KEYS.SELECTED_FROM_DATE);
+  var savedToDate = localStorage.getItem(CONSTANTS.STORAGE_KEYS.SELECTED_TO_DATE);
 
   if (savedFromDate) {
     this.fromCalendar.setDate(new Date(savedFromDate), false);
   }
-
   if (savedToDate) {
     this.toCalendar.setDate(new Date(savedToDate), false);
   }
@@ -166,31 +173,35 @@ CalendarManager.prototype.restoreSelectedDate = function () {
   if (savedFromDate || savedToDate) {
     this.postsManager.filterByDateRange(
       this.getCalendarDate(this.fromCalendar),
-      this.getCalendarDate(this.toCalendar),
+      this.getCalendarDate(this.toCalendar)
     );
   }
 
   this.updateClearButtonStates();
 };
 
+/**
+ * Disable a clear button when its associated input is empty
+ * so the user gets a visual hint that there is nothing to clear.
+ */
 CalendarManager.prototype.updateClearButtonStates = function () {
   if (this.clearFromBtn) {
     this.clearFromBtn.disabled = this.fromInput.value.trim() === "";
   }
-
   if (this.clearToBtn) {
     this.clearToBtn.disabled = this.toInput.value.trim() === "";
   }
 };
 
+/** Return the ISO date string currently selected in the "from" picker, or null. */
 CalendarManager.prototype.getSelectedDate = function () {
   return this.getCalendarDate(this.fromCalendar);
 };
 
+/** Return the ISO date string for the given Flatpickr instance, or null. */
 CalendarManager.prototype.getCalendarDate = function (calendar) {
   if (calendar && calendar.selectedDates.length > 0) {
     return this.formatDateToISO(calendar.selectedDates[0]);
   }
-
   return null;
 };

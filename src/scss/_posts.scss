@@ -41,7 +41,6 @@
     }
 
     .post-info-col {
-
       &:last-child {
         display: flex;
         justify-content: space-between;
@@ -284,6 +283,7 @@
 .load-more-btn {
   display: block;
   color: #929292;
+  background: none;
   padding: $spacing-md $spacing-xxl;
   margin: 0 auto;
   border-radius: $border-radius-xl;

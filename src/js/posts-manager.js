@@ -1,27 +1,36 @@
 /**
  * Posts Manager
  *
- * Карточки постов и empty-state уже отрисованы статически в index.html
- * (бекэнд будет рендерить эту разметку сам). Поэтому здесь JS больше не
- * создаёт/удаляет DOM-узлы — он только показывает/скрывает то, что уже
- * есть на странице: "load more" открывает следующую порцию, фильтр по
- * дате прячет всё, что не подходит.
+ * Post cards are rendered statically in index.html (the backend owns that
+ * markup in production). This module never creates or removes DOM nodes —
+ * it only shows/hides cards that already exist on the page:
+ *   - "Load more" reveals the next batch of cards.
+ *   - The date-range filter hides cards that do not match the selection.
+ *
+ * Card metadata (id, date) is read from data attributes on each .post-card
+ * element, so no separate JS data array is needed.
  */
 var PostsManager = function () {
-  this.allPosts = CONSTANTS.MOCK_POSTS.slice();
-  this.filteredPosts = this.allPosts.slice();
-  this.displayedPosts = [];
-  this.currentPage = 0;
-  this.selectedDate = null;
-  this.containerEl = document.querySelector(
-    CONSTANTS.SELECTORS.POSTS_CONTAINER,
-  );
+  this.containerEl = document.querySelector(CONSTANTS.SELECTORS.POSTS_CONTAINER);
   this.loadMoreBtn = document.querySelector(CONSTANTS.SELECTORS.LOAD_MORE_BTN);
   this.emptyStateEl = document.querySelector(CONSTANTS.SELECTORS.EMPTY_STATE);
+
+  // allCards: every [data-post-id] element, in DOM order
+  this.allCards = [];
+  // filteredCards: subset matching the active date filter
+  this.filteredCards = [];
+  // how many cards from filteredCards are currently visible
+  this.visibleCount = 0;
 };
 
 PostsManager.prototype.init = function () {
-  this.renderPostsForCurrentPage();
+  // Read card metadata directly from the DOM — no JS data array needed
+  this.allCards = Array.prototype.slice.call(
+    this.containerEl.querySelectorAll("[data-post-id]")
+  );
+  this.filteredCards = this.allCards.slice();
+
+  this.renderPage();
   this.attachEventListeners();
 };
 
@@ -34,52 +43,44 @@ PostsManager.prototype.attachEventListeners = function () {
   }
 };
 
-PostsManager.prototype.filterByDate = function (date) {
-  this.selectedDate = date;
-  this.currentPage = 0;
-  this.displayedPosts = [];
-
-  if (!date) {
-    this.filteredPosts = this.allPosts.slice();
-  } else {
-    this.filteredPosts = this.allPosts.filter(function (post) {
-      return post.date === date;
-    });
-  }
-
-  this.renderPostsForCurrentPage();
-  this.updateLoadMoreButton();
-};
-
+/**
+ * Filter cards by a date range (ISO strings or null).
+ * Passing two nulls clears the filter and shows all cards.
+ */
 PostsManager.prototype.filterByDateRange = function (fromDate, toDate) {
-  this.selectedDate = fromDate || toDate || null;
-  this.currentPage = 0;
-  this.displayedPosts = [];
+  this.visibleCount = 0;
 
   if (!fromDate && !toDate) {
-    this.filteredPosts = this.allPosts.slice();
+    this.filteredCards = this.allCards.slice();
   } else {
-    this.filteredPosts = this.allPosts.filter(function (post) {
-      var isAfterFrom = !fromDate || post.date >= fromDate;
-      var isBeforeTo = !toDate || post.date <= toDate;
+    this.filteredCards = this.allCards.filter(function (card) {
+      var date = card.getAttribute("data-date");
+      var isAfterFrom = !fromDate || date >= fromDate;
+      var isBeforeTo = !toDate || date <= toDate;
       return isAfterFrom && isBeforeTo;
     });
   }
 
-  this.renderPostsForCurrentPage();
+  this.renderPage();
   this.updateLoadMoreButton();
 };
 
+/** Remove the active date filter and show all cards. */
 PostsManager.prototype.clearFilter = function () {
-  this.filterByDate(null);
+  this.filterByDateRange(null, null);
 };
 
+/** Reset pagination and re-render the first page (called on view-mode switch). */
 PostsManager.prototype.resetAndRender = function () {
-  this.currentPage = 0;
-  this.displayedPosts = [];
-  this.renderPostsForCurrentPage();
+  this.visibleCount = 0;
+  this.renderPage();
 };
 
+/**
+ * Return how many cards fit on one page.
+ * On wide screens the grid shows 4 columns, so we use a multiple of 4
+ * to avoid a visually incomplete last row.
+ */
 PostsManager.prototype.getPostsPerPage = function () {
   var isWide = window.innerWidth > CONSTANTS.BREAKPOINT_WIDE;
   var isGrid = !this.containerEl.classList.contains(CONSTANTS.CLASSES.LIST_VIEW);
@@ -89,70 +90,58 @@ PostsManager.prototype.getPostsPerPage = function () {
   return CONSTANTS.POSTS_PER_PAGE;
 };
 
-PostsManager.prototype.renderPostsForCurrentPage = function () {
+/**
+ * Show cards up to visibleCount; hide everything else.
+ * Falls back to empty-state when filteredCards is empty.
+ */
+PostsManager.prototype.renderPage = function () {
   var perPage = this.getPostsPerPage();
-  var startIndex = this.currentPage * perPage;
-  var endIndex = startIndex + perPage;
-  var postsToAdd = this.filteredPosts.slice(startIndex, endIndex);
+  this.visibleCount = this.visibleCount || perPage;
 
-  if (postsToAdd.length > 0) {
-    this.displayedPosts = this.displayedPosts.concat(postsToAdd);
-    this.render();
-  } else if (this.currentPage === 0) {
+  if (this.filteredCards.length === 0) {
     this.renderEmptyState();
+    return;
   }
+
+  UIUtils.toggleElement(this.emptyStateEl, false);
+
+  // Build a fast lookup of cards that should be visible
+  var visibleSet = {};
+  for (var i = 0; i < this.visibleCount && i < this.filteredCards.length; i++) {
+    visibleSet[this.filteredCards[i].getAttribute("data-post-id")] = true;
+  }
+
+  this.allCards.forEach(function (card) {
+    var id = card.getAttribute("data-post-id");
+    UIUtils.toggleElement(card, !!visibleSet[id]);
+  });
 
   this.updateLoadMoreButton();
 };
 
-// Показывает карточки из displayedPosts и скрывает все остальные
-// (в том числе те, что не попали в текущий фильтр вообще).
-PostsManager.prototype.render = function () {
-  UIUtils.toggleElement(this.emptyStateEl, false);
-
-  var visibleIds = {};
-  this.displayedPosts.forEach(function (post) {
-    visibleIds[post.id] = true;
-  });
-
-  var allCards = this.containerEl.querySelectorAll("[data-post-id]");
-  for (var i = 0; i < allCards.length; i++) {
-    var id = Number(allCards[i].getAttribute("data-post-id"));
-    UIUtils.toggleElement(allCards[i], !!visibleIds[id]);
-  }
-};
-
+/** Hide all cards and show the empty-state placeholder. */
 PostsManager.prototype.renderEmptyState = function () {
-  var allCards = this.containerEl.querySelectorAll("[data-post-id]");
-  for (var i = 0; i < allCards.length; i++) {
-    UIUtils.toggleElement(allCards[i], false);
-  }
+  this.allCards.forEach(function (card) {
+    UIUtils.toggleElement(card, false);
+  });
   UIUtils.toggleElement(this.emptyStateEl, true);
+  UIUtils.toggleElement(this.loadMoreBtn, false);
 };
 
+/** Simulate a network request delay, then reveal the next page of cards. */
 PostsManager.prototype.loadMore = function () {
   var self = this;
   UIUtils.showLoadingState(this.loadMoreBtn);
 
   setTimeout(function () {
-    self.currentPage++;
-    self.renderPostsForCurrentPage();
+    self.visibleCount += self.getPostsPerPage();
+    self.renderPage();
     UIUtils.hideLoadingState(self.loadMoreBtn);
   }, 500);
 };
 
+/** Show the "Load more" button only when there are more cards to display. */
 PostsManager.prototype.updateLoadMoreButton = function () {
-  var totalDisplayed = this.displayedPosts.length;
-  var totalAvailable = this.filteredPosts.length;
-  var hasMore = totalDisplayed < totalAvailable;
-
+  var hasMore = this.visibleCount < this.filteredCards.length;
   UIUtils.toggleElement(this.loadMoreBtn, hasMore);
-};
-
-PostsManager.prototype.getFilteredPostsCount = function () {
-  return this.filteredPosts.length;
-};
-
-PostsManager.prototype.getDisplayedPostsCount = function () {
-  return this.displayedPosts.length;
 };

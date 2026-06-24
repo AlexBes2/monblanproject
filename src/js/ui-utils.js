@@ -1,10 +1,10 @@
 /**
  * UI Utilities
  *
- * Вся разметка постов (включая empty-state) теперь статическая, в index.html —
- * её будет рендерить бекэнд. Поэтому здесь больше нет функций, которые
- * строят HTML через innerHTML ("зеркало" верстки) — только переключение
- * состояний уже существующих элементов.
+ * All post markup (including the empty-state block) is rendered statically
+ * in index.html — the backend will own that HTML in production.
+ * Therefore these helpers only toggle state on already-existing elements;
+ * they never build or destroy DOM nodes.
  */
 var UIUtils = {
   showLoadingState: function (button) {
@@ -17,6 +17,11 @@ var UIUtils = {
     button.disabled = false;
   },
 
+  /**
+   * Show or hide an element via the "hidden" class.
+   * @param {Element} element
+   * @param {boolean} [show=true]
+   */
   toggleElement: function (element, show) {
     if (!element) return;
     if (show === undefined) show = true;
@@ -35,6 +40,7 @@ var UIUtils = {
     element.classList.remove("active");
   },
 
+  /** Remove the "active" class from every element in the given NodeList/Array. */
   removeActiveAll: function (elements) {
     for (var i = 0; i < elements.length; i++) {
       this.removeActive(elements[i]);

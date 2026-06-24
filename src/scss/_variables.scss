@@ -1,11 +1,7 @@
 // ============================================
 // COLORS
 // ============================================
-$color-primary: #2d8659;
-$color-primary-light: #e0f2f1;
-$color-primary-dark: #1b5e3f;
 $color-secondary: #ff4081;
-$color-secondary-light: #ffb3d9;
 $color-text: #000;
 $color-text-light: #666666;
 $color-text-lighter: #999999;
@@ -57,23 +53,17 @@ $spacing-xxl: 48px;
 // ============================================
 // TRANSITIONS
 // ============================================
-$transition-fast: 0.15s;
 $transition-base: 0.3s;
-$transition-slow: 0.5s;
 $transition-timing: ease-in-out;
 
 // ============================================
 // SHADOWS
 // ============================================
-$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
 $shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-$shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
 
 // ============================================
 // BORDER RADIUS
 // ============================================
-$border-radius-sm: 4px;
 $border-radius-md: 8px;
-$border-radius-lg: 12px;
 $border-radius-xl: 16px;
 $border-radius-full: 50%;

@@ -49,68 +49,10 @@ p {
     margin-bottom: 0;
   }
 }
-
-a {
-  color: $color-primary;
-  text-decoration: none;
-  transition: color $transition-base $transition-timing;
-
-  &:hover {
-    color: $color-primary-dark;
-  }
-}
-
-// ============================================
-// BUTTONS
-// ============================================
-
 button {
   @include button-base;
 }
 
-.btn {
-  @include button-base;
-  display: inline-block;
-  text-align: center;
-
-  &--primary {
-    background-color: $color-primary;
-    color: $color-bg;
-
-    &:hover {
-      background-color: $color-primary-dark;
-    }
-  }
-
-  &--secondary {
-    background-color: $color-secondary;
-    color: $color-bg;
-
-    &:hover {
-      background-color: color.adjust($color-secondary, $lightness: -10%);
-    }
-  }
-
-  &--outline {
-    border: 2px solid $color-primary;
-    color: $color-primary;
-    background-color: transparent;
-
-    &:hover {
-      background-color: rgba($color-primary, 0.05);
-    }
-  }
-
-  &--large {
-    padding: $spacing-md $spacing-lg;
-    font-size: $font-size-body;
-  }
-
-  &--small {
-    padding: $spacing-xs $spacing-sm;
-    font-size: $font-size-small;
-  }
-}
 
 // ============================================
 // FORMS
@@ -129,8 +71,6 @@ select {
 
   &:focus {
     outline: none;
-    border-color: $color-primary;
-    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
   }
 
   &:disabled {
@@ -197,8 +137,4 @@ img {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
-}
-
-.clearfix {
-  @include clearfix;
 }

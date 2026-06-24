@@ -67,14 +67,6 @@
   color: $color-text;
 }
 
-@mixin small-text {
-  font-family: $font-family-main;
-  font-size: $font-size-small;
-  font-weight: $font-weight-regular;
-  line-height: 1.4;
-  color: $color-text-light;
-}
-
 // ============================================
 // LAYOUT MIXINS
 // ============================================
@@ -85,35 +77,9 @@
   justify-content: center;
 }
 
-@mixin flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-@mixin flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-@mixin absolute-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 // ============================================
 // INTERACTION MIXINS
 // ============================================
-
-@mixin hover-transition {
-  transition: all $transition-base $transition-timing;
-
-  &:hover {
-    @content;
-  }
-}
 
 @mixin button-base {
   @include body-text;
@@ -138,31 +104,21 @@
   }
 }
 
-// ============================================
-// UTILITY MIXINS
-// ============================================
-
-@mixin box-shadow($shadow: $shadow-md) {
-  box-shadow: $shadow;
+@mixin small-text {
+  font-family: $font-family-main;
+  font-size: $font-size-small;
+  font-weight: $font-weight-regular;
+  line-height: 1.4;
+  color: $color-text-light;
 }
 
-@mixin truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-@mixin multiline-truncate($lines: 2) {
-  display: -webkit-box;
-  -webkit-line-clamp: $lines;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-@mixin clearfix {
-  &::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
 }

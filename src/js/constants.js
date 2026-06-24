@@ -1,25 +1,37 @@
 /**
- * Constants and Configuration
+ * Application constants and configuration.
+ * All magic numbers, CSS selectors, and class names live here
+ * so they are easy to update in one place.
  */
 var CONSTANTS = {
-  API_POSTS_URL: "/api/posts",
-  API_FILTER_URL: "/api/posts/filter",
-
+  // ------------------------------------
+  // Pagination
+  // ------------------------------------
   POSTS_PER_PAGE: 9,
+  // On wide screens the grid shows 4 columns → show 8 cards (2 full rows)
   POSTS_PER_PAGE_GRID_WIDE: 8,
   BREAKPOINT_WIDE: 1024,
 
+  // ------------------------------------
+  // View modes
+  // ------------------------------------
   VIEW_MODES: {
     GRID: "grid",
     LIST: "list",
   },
 
+  // ------------------------------------
+  // localStorage keys
+  // ------------------------------------
   STORAGE_KEYS: {
     VIEW_MODE: "app-view-mode",
     SELECTED_FROM_DATE: "app-selected-from-date",
     SELECTED_TO_DATE: "app-selected-to-date",
   },
 
+  // ------------------------------------
+  // DOM selectors
+  // ------------------------------------
   SELECTORS: {
     POSTS_CONTAINER: "#posts-container",
     LOAD_MORE_BTN: "#load-more-btn",
@@ -29,137 +41,16 @@ var CONSTANTS = {
     CLEAR_TO_FILTER_BTN: "#clear-filter-to",
     VIEW_GRID_BTN: ".view-btn--grid",
     VIEW_LIST_BTN: ".view-btn--list",
-    VIEW_BTNS: ".view-btn",
     EMPTY_STATE: ".empty-state",
   },
 
+  // ------------------------------------
+  // CSS class names (kept as constants to avoid typo bugs)
+  // ------------------------------------
   CLASSES: {
     ACTIVE: "active",
     LOADING: "loading",
     HIDDEN: "hidden",
     LIST_VIEW: "list-view",
   },
-
-  MOCK_POSTS: [
-    {
-      id: 1,
-      title: "Today",
-      date: "2016-09-08",
-      displayDate: "9-08-2016",
-      image: "images/post-1.avif",
-      likes: 128,
-      comments: 31,
-      postDateLikes: 67,
-      postDateComments: 22,
-      uploadDate: "11-04-2016",
-    },
-    {
-      id: 2,
-      title: "Today",
-      date: "2016-09-08",
-      displayDate: "9-08-2016",
-      image: "images/post-2.avif",
-      likes: 128,
-      comments: 31,
-      postDateLikes: 71,
-      postDateComments: 19,
-      uploadDate: "14-04-2016",
-    },
-    {
-      id: 3,
-      title: "Today",
-      date: "2016-09-08",
-      displayDate: "9-08-2016",
-      image: "images/post-3.avif",
-      likes: 128,
-      comments: 31,
-      postDateLikes: 58,
-      postDateComments: 25,
-      uploadDate: "9-04-2016",
-    },
-    {
-      id: 4,
-      title: "Today",
-      date: "2016-09-08",
-      displayDate: "9-08-2016",
-      image: "images/post-4.avif",
-      likes: 128,
-      comments: 31,
-      postDateLikes: 64,
-      postDateComments: 20,
-      uploadDate: "17-04-2016",
-    },
-    {
-      id: 5,
-      title: "Today",
-      date: "2016-09-08",
-      displayDate: "9-08-2016",
-      image: "images/post-5.avif",
-      likes: 128,
-      comments: 31,
-      postDateLikes: 73,
-      postDateComments: 28,
-      uploadDate: "5-04-2016",
-    },
-    {
-      id: 6,
-      title: "Today",
-      date: "2016-09-08",
-      displayDate: "9-08-2016",
-      image: "images/post-6.avif",
-      likes: 128,
-      comments: 31,
-      postDateLikes: 61,
-      postDateComments: 24,
-      uploadDate: "12-04-2016",
-    },
-    {
-      id: 7,
-      title: "Today",
-      date: "2016-09-09",
-      displayDate: "9-09-2016",
-      image: "images/post-7.avif",
-      likes: 95,
-      comments: 22,
-      postDateLikes: 48,
-      postDateComments: 14,
-      uploadDate: "20-04-2016",
-    },
-    {
-      id: 8,
-      title: "Today",
-      date: "2016-09-09",
-      displayDate: "9-09-2016",
-      image: "images/post-8.avif",
-      likes: 156,
-      comments: 42,
-      postDateLikes: 89,
-      postDateComments: 27,
-      uploadDate: "22-04-2016",
-    },
-    {
-      id: 9,
-      title: "Today",
-      date: "2016-09-09",
-      displayDate: "9-09-2016",
-      image: "images/post-9.avif",
-      likes: 203,
-      comments: 58,
-      postDateLikes: 112,
-      postDateComments: 35,
-      uploadDate: "25-04-2016",
-    },
-    {
-      id: 10,
-      title: "Today",
-      date: "2016-09-10",
-      displayDate: "9-10-2016",
-      image: "images/post-10.avif",
-      likes: 178,
-      comments: 45,
-      postDateLikes: 96,
-      postDateComments: 30,
-      uploadDate: "28-04-2016",
-    },
-  ],
 };
