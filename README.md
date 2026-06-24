@@ -1,221 +1,114 @@
-# Monblanproject - Profile Page
+# Monblanproject
 
-Адаптивный профильный сайт социальной сети с лентой постов и календарём для фильтрации, разработанный по макету Figma.
+A responsive social-profile page built as a test project. The interface follows a provided Figma design and includes a profile header, post feed, date-based filtering, and grid/list view switching.
 
-## 🚀 Характеристики
+## Features
 
-- ✅ **Адаптивный дизайн** - оптимизирован для мобильных и десктопных устройств
-- ✅ **Календарь** - интеграция библиотеки flatpickr для фильтрации постов по датам
-- ✅ **Переключение видов** - сетка (grid) и список (list) для просмотра постов
-- ✅ **Gulp сборка** - автоматизация компиляции SCSS и конкатенации JS
-- ✅ **SCSS стили** - модульная структура стилей с переменными и миксинами
-- ✅ **Vanilla JavaScript** - чистый JS без фреймворков, разделённый на модули
-- ✅ **Google Fonts** - использование шрифтов Roboto и Montserrat
+- Responsive layout for mobile, tablet, and desktop screens
+- Profile header with username, start date, and stats
+- Date filtering with two flatpickr inputs (from/to)
+- Grid and list view toggle with saved preference
+- Post cards with likes, comments, and upload information
+- Gulp-based build pipeline for HTML, SCSS, JavaScript, and assets
 
-## 📁 Структура проекта
+## Design
 
-```
+- Figma: https://www.figma.com/file/MwGYHQfDaytsvUW7ivCNMY/%D0%A2%D0%B5%D1%82%D0%BE%D0%B2%D0%BE%D0%B5-%D0%B4%D0%BB%D1%8F-%D0%B2%D0%B5%D1%80%D1%82%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D1%89%D0%B8%D0%BA%D0%BE%D0%B2?node-id=0%3A1
+
+## Tech Stack
+
+- HTML
+- SCSS
+- Vanilla JavaScript
+- Gulp
+- flatpickr
+- Google Fonts
+
+## Project Structure
+
+```text
 monblanproject/
 ├── src/
-│   ├── scss/
-│   │   ├── _variables.scss      # Переменные (цвета, шрифты, размеры)
-│   │   ├── _mixins.scss         # Миксины (адаптивность, типография, утилиты)
-│   │   ├── _base.scss           # Базовые стили (reset, типография)
-│   │   ├── _profile.scss        # Стили профиля и фильтра
-│   │   ├── _posts.scss          # Стили постов и карточек
-│   │   └── main.scss            # Главный файл (импорты)
+│   ├── index.html
+│   ├── images/
 │   ├── js/
-│   │   ├── constants.js         # Константы и конфигурация
-│   │   ├── ui-utils.js          # Утилиты UI (создание элементов, состояния)
-│   │   ├── posts-manager.js     # Управление постами и пагинацией
-│   │   ├── calendar-manager.js  # Управление календарём (flatpickr)
-│   │   ├── view-manager.js      # Управление видами (сетка/список)
-│   │   └── app.js               # Инициализация приложения
-│   ├── images/                  # Папка для изображений
-│   └── index.html               # HTML разметка
+│   │   ├── app.js
+│   │   ├── calendar-manager.js
+│   │   ├── constants.js
+│   │   ├── posts-manager.js
+│   │   ├── ui-utils.js
+│   │   └── view-manager.js
+│   └── scss/
+│       ├── _base.scss
+│       ├── _mixins.scss
+│       ├── _posts.scss
+│       ├── _profile.scss
+│       ├── _variables.scss
+│       └── main.scss
 ├── dist/
-│   ├── css/
-│   │   ├── main.css             # Неминифицированные стили
-│   │   └── main.min.css         # Минифицированные стили
-│   ├── js/
-│   │   ├── main.js              # Конкатенированный JS
-│   │   └── main.min.js          # Минифицированный JS
-│   └── index.html               # Готовый HTML
-├── package.json                 # NPM зависимости
-├── gulpfile.js                  # Конфигурация Gulp
-├── .gitignore                   # Исключения для Git
-└── README.md                    # Документация
+├── gulpfile.js
+├── package.json
+└── README.md
 ```
 
-## 🛠️ Установка и запуск
+## Installation
 
-### Требования
+Requirements:
 
-- Node.js 12+
-- npm или yarn
+- Node.js 18+
+- npm
 
-### Установка зависимостей
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Запуск разработки (watch mode)
+## Development
+
+Start the dev workflow:
 
 ```bash
 npm start
-# или
+# or
 npx gulp
 ```
 
-Gulp будет следить за изменениями в файлах `src/` и перекомпилировать их в `dist/`.
+This watches the source files and rebuilds the output in the dist folder.
 
-### Запуск сборки
+## Build
+
+Create a production build:
 
 ```bash
 npm run build
-# или
+# or
 npx gulp build
 ```
 
-### Просмотр в браузере
+## Preview
+
+You can preview the built project locally with a simple static server:
 
 ```bash
 cd dist
 python3 -m http.server 8000
 ```
 
-Откройте http://localhost:8000 в браузере.
+Then open http://localhost:8000 in your browser.
 
-## 🎨 Дизайн и стили
+## Scripts
 
-### Шрифты
+- npm start — starts the Gulp workflow
+- npm run build — generates the production build
+- npm run dev — runs the watcher
 
-- **Roboto 500** - основной шрифт (400, 700 начертания также доступны)
-- **Montserrat 500** - шрифт для заголовков H1
-- Загружаются с Google Fonts
+## Notes
 
-### Цветовая схема
+- The project uses mock data for the post feed.
+- The date filter is limited to the period shown in the design.
+- Preferences such as the selected view are stored in localStorage.
 
-- **Основной цвет**: `#2d8659` (зеленый)
-- **Вторичный цвет**: `#ff4081` (розовый)
-- **Текст**: `#333333`
-- **Фон**: `#ffffff`
+## License
 
-### Адаптивность
-
-- **Мобильные**: 320px - 480px
-- **Планшеты**: 480px - 768px
-- **Десктопы**: 768px+
-
-Использованы SCSS медиа-запросы через миксин `@include respond-to('md')`
-
-## 📦 Используемые библиотеки
-
-### Production
-
-- **flatpickr** - легкий календарь без зависимостей
-
-### Development
-
-- **gulp** - автоматизация задач сборки
-- **gulp-sass** - компиляция SCSS
-- **gulp-autoprefixer** - добавление префиксов для кросс-браузерности
-- **gulp-minify-css** - минификация CSS
-- **gulp-concat** - конкатенация файлов
-- **gulp-rename** - переименование файлов
-- **sass** - Dart Sass компилятор
-
-## 🧠 JavaScript модули
-
-### constants.js
-
-Глобальные константы: селекторы, CSS классы, конфигурация и данные.
-
-### ui-utils.js
-
-Утилиты для работы с DOM: создание элементов, управление классами, состояния.
-
-### posts-manager.js
-
-Управление постами:
-
-- Загрузка и отображение постов
-- Фильтрация по дате
-- Пагинация (Load More)
-
-### calendar-manager.js
-
-Управление календарём:
-
-- Инициализация flatpickr
-- Обработка выбора даты
-- Сохранение выбора в localStorage
-
-### view-manager.js
-
-Управление видами:
-
-- Переключение между сеткой и списком
-- Сохранение выбранного вида в localStorage
-
-### app.js
-
-Инициализация приложения и запуск всех менеджеров при загрузке DOM.
-
-## ✨ Функциональность
-
-1. **Отображение профиля** - имя, дата начала, статистика
-2. **Фильтрация по дате** - выбор даты в календаре фильтрует посты
-3. **Переключение видов** - сетка (3 колонны на десктопе) или список
-4. **Пагинация** - кнопка "Load More" для загрузки дополнительных постов
-5. **Адаптивность** - все работает на мобильных устройствах
-6. **Локальное хранилище** - сохранение выбранной даты и вида
-
-## 🔧 Gulp задачи
-
-```bash
-# Сборка SCSS
-npx gulp scss
-
-# Конкатенация JS
-npx gulp js
-
-# Копирование HTML
-npx gulp html
-
-# Полная сборка
-npx gulp build
-
-# Наблюдение за изменениями
-npx gulp watch
-
-# По умолчанию (build + watch)
-npx gulp
-```
-
-## 📱 Мобильная оптимизация
-
-- Flexbox адаптивная сетка
-- Touch-friendly элементы управления
-- Оптимизированные размеры шрифтов
-- Быстрая загрузка (минифицированные файлы)
-
-## 🐛 Известные особенности
-
-- Изображения используют placeholder.com для демонстрации (в реальном проекте используйте реальные изображения)
-- Mock-данные в constants.js содержат 10 постов для демонстрации
-- Календарь ограничен сентябрём 2016 (согласно макету)
-
-## 📝 Лицензия
-
-MIT
-
-## 👤 Автор
-
-Создано по макету Figma: https://www.figma.com/design/DOCQ3xi6pdA0TJSEkb2o47/
-
----
-
-**Версия:** 1.0.0  
-**Дата:** 2024
+ISC
