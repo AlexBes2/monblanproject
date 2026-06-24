@@ -1,0 +1,388 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+// ============================================
+// POSTS CONTAINER
+// ============================================
+
+.posts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+
+  @include respond-to("sm") {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: $spacing-xxl;
+  }
+
+  @include respond-to("sm-md") {
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: $spacing-xxl;
+  }
+
+  @include respond-to("lg") {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &:not(.list-view) {
+    margin-bottom: $spacing-md;
+
+    .post-info {
+      padding: 12px 12px 18px;
+    }
+
+    .post-stat {
+      gap: 7px;
+
+      &:first-child {
+        margin-bottom: 8px;
+      }
+    }
+
+    .post-info-col {
+
+      &:last-child {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .post-upload-date {
+      font-size: 12px;
+    }
+
+    .post-title-badge {
+      font-size: 14px;
+    }
+  }
+
+  &.list-view {
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+    margin-bottom: 33px;
+
+    .post-card {
+      @include flex-between;
+      flex-direction: row;
+      height: auto;
+
+      @include respond-to("md") {
+        height: 86px;
+      }
+
+      .post-image {
+        flex: 0 0 50px;
+        height: 50px;
+
+        @include respond-to("sm-md") {
+          flex: 0 0 86px;
+          height: 86px;
+        }
+      }
+
+      .post-title-badge,
+      .post-date,
+      .post-title {
+        font-size: 14px;
+
+        @include respond-to("sm-md") {
+          font-size: 16px;
+        }
+      }
+
+      .post-info {
+        flex: 1;
+        padding: $spacing-sm;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: $spacing-sm;
+
+        @include respond-to("sm-md") {
+          padding: $spacing-md;
+          gap: $spacing-lg;
+        }
+
+        @include respond-to("md") {
+          padding: $spacing-lg;
+        }
+
+        .align {
+          display: flex;
+        }
+      }
+
+      .post-info-col {
+        flex: 0 0 33%;
+
+        &:last-child {
+          flex-basis: auto;
+        }
+      }
+    }
+  }
+}
+
+// ============================================
+// POST CARD
+// ============================================
+
+.post-card {
+  @include flex-column;
+  background: white;
+  overflow: hidden;
+  transition: all $transition-base $transition-timing;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-md;
+  }
+}
+
+.post-image {
+  width: 100%;
+  height: 203px;
+  overflow: hidden;
+  background-color: $color-bg-light;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-base $transition-timing;
+
+    .post-card:hover & {
+      transform: scale(1.05);
+    }
+  }
+
+  .post-image-placeholder {
+    @include flex-center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, $color-bg-light 0%, $color-border 100%);
+    color: $color-text-lighter;
+    font-size: $font-size-h3;
+  }
+
+  // Показывается, если картинка (avif) не загрузилась — например, очень старый браузер
+  &.post-image--error {
+    @include flex-center;
+    background: linear-gradient(135deg, $color-bg-light 0%, $color-border 100%);
+
+    &::after {
+      content: "🖼";
+      font-size: $font-size-h3;
+      opacity: 0.5;
+    }
+  }
+}
+
+// ============================================
+// POST INFO
+// ============================================
+
+.post-info {
+  flex: 1;
+  display: flex;
+  gap: $spacing-lg;
+  padding: $spacing-md;
+  flex-wrap: wrap;
+
+  @include respond-to("md") {
+    padding: $spacing-lg;
+  }
+
+  .post-info-col {
+    &:last-child {
+      flex-basis: 100%;
+    }
+  }
+}
+
+.post-info-col {
+  @include flex-column;
+  flex: 1;
+  min-width: 0;
+  gap: $spacing-sm;
+}
+
+.post-title,
+.post-date {
+  @include heading-h3;
+  margin: 0;
+}
+
+.post-title-badge,
+.post-upload-date {
+  @include body-text;
+  font-weight: $font-weight-medium;
+  margin: 0;
+}
+
+.post-title-badge {
+  font-size: 16px;
+}
+
+.post-stat {
+  @include flex-center;
+  justify-content: flex-start;
+  gap: $spacing-xs;
+  color: $color-text-light;
+  font-size: $font-size-body;
+
+  .count {
+    font-weight: $font-weight-medium;
+    color: $color-text;
+  }
+
+  .list-view & {
+    gap: 2px;
+    margin-right: 8px;
+
+    @include respond-to("sm-md") {
+      gap: 8px;
+      margin-right: 18px;
+    }
+  }
+}
+
+.post-stat--likes {
+  color: $color-secondary;
+
+  &:before {
+    content: "";
+    display: inline-block;
+    width: 15px;
+    height: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg%20width='15'%20height='14'%20viewBox='0%200%2015%2014'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cpath%20d='M5.95536e-08%204.05069C-9.22365e-05%203.51247%200.107097%202.97963%200.315302%202.48331C0.523508%201.98698%200.828553%201.53714%201.21261%201.16007C1.59667%200.782992%202.05203%200.486251%202.55209%200.287187C3.05215%200.0881223%203.58687-0.00927256%204.125%200.000694555C4.76172-0.00268682%205.39189%200.129297%205.97374%200.387898C6.55559%200.646498%207.07584%201.02581%207.5%201.50069C7.92416%201.02581%208.44441%200.646498%209.02626%200.387898C9.60811%200.129297%2010.2383-0.00268682%2010.875%200.000694555C11.4131-0.00927256%2011.9479%200.0881223%2012.4479%200.287187C12.948%200.486251%2013.4033%200.782992%2013.7874%201.16007C14.1714%201.53714%2014.4765%201.98698%2014.6847%202.48331C14.8929%202.97963%2015.0001%203.51247%2015%204.05069C15%208.06769%2010.2157%2011.1007%207.5%2013.5007C4.79025%2011.0804%205.95536e-08%208.07069%205.95536e-08%204.05069Z'%20fill='black'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+.post-stat--comments {
+  &:before {
+    content: "";
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background: url("data:image/svg+xml,%3Csvg%20width='15'%20height='15'%20viewBox='0%200%2015%2015'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cpath%20d='M15%201.5C15%200.675%2014.325%200%2013.5%200H1.5C0.675%200%200%200.675%200%201.5V10.5C0%2011.325%200.675%2012%201.5%2012H12L15%2015V1.5Z'%20fill='black'/%3E%3C/svg%3E")
+      no-repeat center / contain;
+  }
+}
+
+// ============================================
+// LOAD MORE BUTTON
+// ============================================
+
+.load-more-btn {
+  display: block;
+  color: #929292;
+  padding: $spacing-md $spacing-xxl;
+  margin: 0 auto;
+  border-radius: $border-radius-xl;
+  border: 1px solid #929292;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all $transition-base $transition-timing;
+  min-width: 111px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  &:hover {
+    background-color: #929292;
+    color: white;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &.loading {
+    position: relative;
+    color: transparent;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+  }
+}
+
+// ============================================
+// LOADING ANIMATION
+// ============================================
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.post-card {
+  animation: fadeIn $transition-base $transition-timing;
+}
+
+// ============================================
+// EMPTY STATE
+// ============================================
+
+.empty-state {
+  @include flex-column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: $spacing-xxl;
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+.empty-state-icon {
+  width: 60px;
+  height: 60px;
+  color: $color-text-lighter;
+  margin-bottom: $spacing-lg;
+  opacity: 0.5;
+}
+
+.empty-state-title {
+  @include heading-h2;
+  margin-bottom: $spacing-md;
+  color: $color-text-light;
+}
+
+.empty-state-text {
+  @include body-text;
+  color: $color-text-lighter;
+  max-width: 300px;
+  margin: 0 auto;
+}

@@ -1,0 +1,53 @@
+// ============================================
+// MAIN STYLES FILE
+// ============================================
+
+// Variables needed directly in this file (media query below)
+@use "variables" as *;
+
+// Component partials — each loads its own variables/mixins via @use
+@use "base";
+@use "profile";
+@use "posts";
+
+// ============================================
+// GLOBAL APP STYLES
+// ============================================
+
+.main-content {
+  width: 100%;
+}
+
+// ============================================
+// RESPONSIVE UTILITIES
+// ============================================
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  body {
+    font-size: $font-size-body;
+  }
+}
+
+// ============================================
+// ACCESSIBILITY
+// ============================================
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  // For future dark mode support
+  // body {
+  //   background-color: $color-text;
+  //   color: $color-bg;
+  // }
+}

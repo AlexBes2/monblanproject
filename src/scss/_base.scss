@@ -1,0 +1,204 @@
+@use "sass:color";
+@use "variables" as *;
+@use "mixins" as *;
+
+// ============================================
+// BASE STYLES
+// ============================================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  @include body-text;
+  background-color: $color-bg;
+  color: $color-text;
+  font-family: $font-family-main;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ============================================
+// TYPOGRAPHY
+// ============================================
+
+h1 {
+  @include heading-h1;
+}
+
+h2 {
+  @include heading-h2;
+}
+
+h3 {
+  @include heading-h3;
+}
+
+p {
+  margin-bottom: $spacing-md;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+  transition: color $transition-base $transition-timing;
+
+  &:hover {
+    color: $color-primary-dark;
+  }
+}
+
+// ============================================
+// BUTTONS
+// ============================================
+
+button {
+  @include button-base;
+}
+
+.btn {
+  @include button-base;
+  display: inline-block;
+  text-align: center;
+
+  &--primary {
+    background-color: $color-primary;
+    color: $color-bg;
+
+    &:hover {
+      background-color: $color-primary-dark;
+    }
+  }
+
+  &--secondary {
+    background-color: $color-secondary;
+    color: $color-bg;
+
+    &:hover {
+      background-color: color.adjust($color-secondary, $lightness: -10%);
+    }
+  }
+
+  &--outline {
+    border: 2px solid $color-primary;
+    color: $color-primary;
+    background-color: transparent;
+
+    &:hover {
+      background-color: rgba($color-primary, 0.05);
+    }
+  }
+
+  &--large {
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-body;
+  }
+
+  &--small {
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-small;
+  }
+}
+
+// ============================================
+// FORMS
+// ============================================
+
+input,
+textarea,
+select {
+  font-family: $font-family-main;
+  font-size: $font-size-body;
+  color: $color-text;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-md;
+  padding: $spacing-sm $spacing-md;
+  transition: all $transition-base $transition-timing;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+  }
+
+  &:disabled {
+    background-color: $color-bg-light;
+    color: $color-text-light;
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: $color-text-lighter;
+  }
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+// ============================================
+// LISTS
+// ============================================
+
+ul,
+ol {
+  list-style: none;
+}
+
+// ============================================
+// IMAGES
+// ============================================
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// ============================================
+// HELPERS
+// ============================================
+
+.container {
+  width: 100%;
+  max-width: $breakpoint-xl;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+
+  @include respond-to("md") {
+    padding: 0 $spacing-lg;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.clearfix {
+  @include clearfix;
+}

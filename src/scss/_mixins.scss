@@ -1,0 +1,168 @@
+@use "variables" as *;
+
+// ============================================
+// RESPONSIVE MIXINS
+// ============================================
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "xs" {
+    @media (min-width: $breakpoint-xs) {
+      @content;
+    }
+  } @else if $breakpoint == "sm" {
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == "sm-md" {
+    @media (min-width: $breakpoint-sm-md) {
+      @content;
+    }
+  } @else if $breakpoint == "md" {
+    @media (min-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == "lg" {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $breakpoint == "xl" {
+    @media (min-width: $breakpoint-xl) {
+      @content;
+    }
+  }
+}
+
+// ============================================
+// TYPOGRAPHY MIXINS
+// ============================================
+
+@mixin heading-h1 {
+  font-family: $font-family-heading;
+  font-size: $font-size-h1;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-heading;
+  color: $color-text;
+}
+
+@mixin heading-h2 {
+  font-family: $font-family-main;
+  font-size: $font-size-h2;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-heading;
+  color: $color-text;
+}
+
+@mixin heading-h3 {
+  font-family: $font-family-main;
+  font-size: $font-size-h3;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-heading;
+  color: $color-text;
+}
+
+@mixin body-text {
+  font-family: $font-family-main;
+  font-size: $font-size-body;
+  font-weight: $font-weight-regular;
+  color: $color-text;
+}
+
+@mixin small-text {
+  font-family: $font-family-main;
+  font-size: $font-size-small;
+  font-weight: $font-weight-regular;
+  line-height: 1.4;
+  color: $color-text-light;
+}
+
+// ============================================
+// LAYOUT MIXINS
+// ============================================
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// ============================================
+// INTERACTION MIXINS
+// ============================================
+
+@mixin hover-transition {
+  transition: all $transition-base $transition-timing;
+
+  &:hover {
+    @content;
+  }
+}
+
+@mixin button-base {
+  @include body-text;
+  font-weight: $font-weight-medium;
+  border: none;
+  border-radius: $border-radius-md;
+  padding: $spacing-sm $spacing-md;
+  cursor: pointer;
+  transition: all $transition-base $transition-timing;
+  outline: none;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+// ============================================
+// UTILITY MIXINS
+// ============================================
+
+@mixin box-shadow($shadow: $shadow-md) {
+  box-shadow: $shadow;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin multiline-truncate($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
