@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -50,12 +50,15 @@
 
               <div class="filter-section">
                 <span class="filter-label">Date</span>
+
+                <!-- "From" date picker -->
                 <label class="date-field" for="date-filter">
                   <input
                     type="text"
                     id="date-filter"
                     class="date-input"
                     placeholder="from"
+                    readonly
                   />
                   <button
                     class="date-action date-action--clear"
@@ -67,12 +70,14 @@
                   <span class="date-calendar" aria-hidden="true"></span>
                 </label>
 
+                <!-- "To" date picker -->
                 <label class="date-field date-field--to" for="date-filter-to">
                   <input
                     type="text"
                     id="date-filter-to"
                     class="date-input"
                     placeholder="to"
+                    readonly
                   />
                   <button
                     class="date-action date-action--clear"
@@ -88,11 +93,13 @@
           </header>
 
           <div class="profile-body">
+            <!-- View-mode toggle -->
             <div class="view-toggle">
               <button
                 class="view-btn view-btn--grid active"
                 data-view="grid"
                 title="Grid view"
+                aria-label="Switch to grid view"
               >
                 <svg
                   width="22"
@@ -100,6 +107,7 @@
                   viewBox="0 0 22 22"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
                 >
                   <rect width="6" height="6" fill="#3D8EDA" />
                   <rect x="8" width="6" height="6" fill="#3D8EDA" />
@@ -116,6 +124,7 @@
                 class="view-btn view-btn--list"
                 data-view="list"
                 title="List view"
+                aria-label="Switch to list view"
               >
                 <svg
                   width="24"
@@ -123,6 +132,7 @@
                   viewBox="0 0 24 22"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
                 >
                   <rect width="6" height="6" fill="#3D8EDA" />
                   <rect y="8" width="6" height="6" fill="#3D8EDA" />
@@ -134,21 +144,19 @@
               </button>
             </div>
 
+            <!-- Post cards — static markup; shown/hidden via JS -->
             <div class="posts-container" id="posts-container">
 
               <div class="post-card" data-post-id="1">
                 <div class="post-image">
                   <img
                     src="images/post-1.avif"
-                    alt="Today"
-                    width="86px"
-                    height="86px"
+                    alt="Post 1"
+                    width="86"
+                    height="86"
                     loading="lazy"
                     decoding="async"
-                    onerror="
-                      this.parentElement.classList.add('post-image--error');
-                      this.remove();
-                    "
+                    onerror="this.parentElement.classList.add('post-image--error'); this.remove();"
                   />
                 </div>
                 <div class="post-info">
@@ -183,29 +191,14 @@
 
               <div class="post-card" data-post-id="2">
                 <div class="post-image">
-                  <img
-                    src="images/post-2.avif"
-                    alt="Today"
-                    width="86px"
-                    height="86px"
-                    loading="lazy"
-                    decoding="async"
-                    onerror="
-                      this.parentElement.classList.add('post-image--error');
-                      this.remove();
-                    "
-                  />
+                  <img src="images/post-2.avif" alt="Post 2" width="86" height="86" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('post-image--error'); this.remove();" />
                 </div>
                 <div class="post-info">
                   <div class="post-info-col">
                     <h3 class="post-title">Today</h3>
                     <div class="align">
-                      <div class="post-stat post-stat--likes">
-                        <span class="count">128</span>
-                      </div>
-                      <div class="post-stat post-stat--comments">
-                        <span class="count">31</span>
-                      </div>
+                      <div class="post-stat post-stat--likes"><span class="count">128</span></div>
+                      <div class="post-stat post-stat--comments"><span class="count">31</span></div>
                     </div>
                   </div>
                   <div class="post-info-col">
@@ -228,18 +221,7 @@
 
               <div class="post-card" data-post-id="3">
                 <div class="post-image">
-                  <img
-                    src="images/post-3.avif"
-                    alt="Today"
-                    width="86px"
-                    height="86px"
-                    loading="lazy"
-                    decoding="async"
-                    onerror="
-                      this.parentElement.classList.add('post-image--error');
-                      this.remove();
-                    "
-                  />
+                  <img src="images/post-3.avif" alt="Post 3" width="86" height="86" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('post-image--error'); this.remove();" />
                 </div>
                 <div class="post-info">
                   <div class="post-info-col">
@@ -273,18 +255,7 @@
 
               <div class="post-card" data-post-id="4">
                 <div class="post-image">
-                  <img
-                    src="images/post-4.avif"
-                    alt="Today"
-                    width="86px"
-                    height="86px"
-                    loading="lazy"
-                    decoding="async"
-                    onerror="
-                      this.parentElement.classList.add('post-image--error');
-                      this.remove();
-                    "
-                  />
+                  <img src="images/post-4.avif" alt="Post 4" width="86" height="86" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('post-image--error'); this.remove();" />
                 </div>
                 <div class="post-info">
                   <div class="post-info-col">
@@ -318,18 +289,7 @@
 
               <div class="post-card" data-post-id="5">
                 <div class="post-image">
-                  <img
-                    src="images/post-5.avif"
-                    alt="Today"
-                    width="86px"
-                    height="86px"
-                    loading="lazy"
-                    decoding="async"
-                    onerror="
-                      this.parentElement.classList.add('post-image--error');
-                      this.remove();
-                    "
-                  />
+                  <img src="images/post-5.avif" alt="Post 5" width="86" height="86" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('post-image--error'); this.remove();" />
                 </div>
                 <div class="post-info">
                   <div class="post-info-col">
@@ -363,18 +323,7 @@
 
               <div class="post-card" data-post-id="6">
                 <div class="post-image">
-                  <img
-                    src="images/post-6.avif"
-                    alt="Today"
-                    width="86px"
-                    height="86px"
-                    loading="lazy"
-                    decoding="async"
-                    onerror="
-                      this.parentElement.classList.add('post-image--error');
-                      this.remove();
-                    "
-                  />
+                  <img src="images/post-6.avif" alt="Post 6" width="86" height="86" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('post-image--error'); this.remove();" />
                 </div>
                 <div class="post-info">
                   <div class="post-info-col">
@@ -408,18 +357,7 @@
 
               <div class="post-card" data-post-id="7">
                 <div class="post-image">
-                  <img
-                    src="images/post-7.avif"
-                    alt="Today"
-                    width="86px"
-                    height="86px"
-                    loading="lazy"
-                    decoding="async"
-                    onerror="
-                      this.parentElement.classList.add('post-image--error');
-                      this.remove();
-                    "
-                  />
+                  <img src="images/post-7.avif" alt="Post 7" width="86" height="86" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('post-image--error'); this.remove();" />
                 </div>
                 <div class="post-info">
                   <div class="post-info-col">
@@ -453,18 +391,7 @@
 
               <div class="post-card" data-post-id="8">
                 <div class="post-image">
-                  <img
-                    src="images/post-8.avif"
-                    alt="Today"
-                    width="86px"
-                    height="86px"
-                    loading="lazy"
-                    decoding="async"
-                    onerror="
-                      this.parentElement.classList.add('post-image--error');
-                      this.remove();
-                    "
-                  />
+                  <img src="images/post-8.avif" alt="Post 8" width="86" height="86" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('post-image--error'); this.remove();" />
                 </div>
                 <div class="post-info">
                   <div class="post-info-col">
@@ -498,18 +425,7 @@
 
               <div class="post-card" data-post-id="9">
                 <div class="post-image">
-                  <img
-                    src="images/post-9.avif"
-                    alt="Today"
-                    width="86px"
-                    height="86px"
-                    loading="lazy"
-                    decoding="async"
-                    onerror="
-                      this.parentElement.classList.add('post-image--error');
-                      this.remove();
-                    "
-                  />
+                  <img src="images/post-9.avif" alt="Post 9" width="86" height="86" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('post-image--error'); this.remove();" />
                 </div>
                 <div class="post-info">
                   <div class="post-info-col">
@@ -541,20 +457,10 @@
                 </div>
               </div>
 
+              <!-- Post 10 is hidden on load; "Load more" reveals it -->
               <div class="post-card hidden" data-post-id="10">
                 <div class="post-image">
-                  <img
-                    src="images/post-10.avif"
-                    alt="Today"
-                    width="86px"
-                    height="86px"
-                    loading="lazy"
-                    decoding="async"
-                    onerror="
-                      this.parentElement.classList.add('post-image--error');
-                      this.remove();
-                    "
-                  />
+                  <img src="images/post-10.avif" alt="Post 10" width="86" height="86" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('post-image--error'); this.remove();" />
                 </div>
                 <div class="post-info">
                   <div class="post-info-col">
@@ -586,6 +492,7 @@
                 </div>
               </div>
 
+              <!-- Empty state — shown by JS when no posts match the filter -->
               <div class="empty-state hidden">
                 <div class="empty-state-icon">📭</div>
                 <h3 class="empty-state-title">No posts found</h3>
@@ -597,7 +504,8 @@
 
             <button class="load-more-btn" id="load-more-btn">LOAD MORE</button>
 
-            <div class="wave-decoration wave-decoration--right">
+            <!-- Decorative wave shape (visible only on large screens) -->
+            <div class="wave-decoration wave-decoration--right" aria-hidden="true">
               <svg
                 width="210"
                 height="368"
